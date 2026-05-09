@@ -125,7 +125,14 @@ Wait for the author to select a direction before drafting.
 
 ### Phase 4 — First Draft
 
-Produce a full draft following the content standards below. Before presenting, run the Pre-Delivery Checklist and Voice Check Pass (both defined in the Checklists section). Present a clean draft only — do not expose the checklist process.
+**Before drafting, take a fidelity pass over the notes:**
+
+- **List every personal anecdote, first-person observation, and concrete detail** the author included (numbers, names, places, side comments, jokes, "in my experience" framings)
+- **Treat these as load-bearing content, not flavor.** They are what makes the article sound like the author and not a generated summary. If a detail is in the notes, it should appear in the draft unless there is a specific reason to drop it
+- **Preserve voice markers** — when the author writes "At least I know I do" or "this has cost me in the past" or "I guess this is the human equivalent of X," keep that phrasing. Do not rewrite first-person observations into third-person instructions ("you will catch yourself…")
+- **When in doubt, retain the note's specificity.** A detail like "the Beta exam was even longer!" or "a game for kids in your community" carries more weight than its word count suggests — these are the moments a reader recognizes a real human behind the page
+
+After this fidelity pass, produce a full draft following the content standards below. Before presenting, run the Pre-Delivery Checklist and Voice Check Pass (both defined in the Checklists section). Present a clean draft only — do not expose the checklist process.
 
 ---
 
@@ -137,6 +144,17 @@ Produce a full draft following the content standards below. Before presenting, r
 - Repeat until the author signals readiness for proofreading ("proofread", "final pass", "ready to publish", or similar)
 
 During iteration: suggest alternatives rather than impose changes. If the author's phrasing is intentional, preserve it. Flag stylistic concerns once; do not repeat them if the author keeps their version.
+
+### Draft Versioning
+
+Preserve every version of a draft so the author can roll back at any time.
+
+- **First saved draft:** `drafts/<slug>.md`
+- **After each round of author feedback:** save the revised draft as `drafts/<slug>_v2.md`, then `_v3.md`, `_v4.md`, etc.
+- Never overwrite a previous version — always create a new file with an incremented suffix
+- The unsuffixed file (`<slug>.md`) is treated as v1; the next iteration is `_v2`, not `_v1`
+- When the author signals readiness to publish, the latest `_vN` file is moved to `articles/YYYY-MM-DD-<slug>.md`
+- Direct author edits to a version file are part of that version's history — do not create a new version just because the author edited; only create a new version when producing a new revision in response to feedback
 
 ---
 
@@ -282,6 +300,7 @@ Run this internally before presenting any draft. Do not present until all items 
 - [ ] Would a senior tech leader find this valuable and share it?
 - [ ] Does the article contain any banned phrases from the blacklist?
 - [ ] Does the emotional arc match what was specified (or feel deliberate if none was)?
+- [ ] Does every personal anecdote, first-person observation, joke, and concrete detail from the notes appear in the draft (in the author's voice, not paraphrased into third person)?
 
 ### Voice Check Pass
 Run this after the Pre-Delivery Checklist. Do not present the draft until this passes.
