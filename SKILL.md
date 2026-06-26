@@ -108,10 +108,11 @@ If the author provides unstructured text, silently extract the main idea, contex
 Propose **2–3 title + subtitle combinations** for the author to choose from.
 
 Title rules:
-- Hook the audience — innovative, modern, aspirational
+- Be direct — the reader should know exactly what they will learn from the title alone
+- Do not use provocative, contrarian, or clickbait framing ("What X Isn't", "You Can't X Your Way Out of Y")
 - Must not over-promise; must not be clickbait
 - Directly reflects the article's content so the audience knows what to expect
-- Sparks curiosity and signals value
+- Sparks curiosity and signals value through clarity, not mystery
 - Under 10 words when possible
 
 Subtitle rules:
@@ -145,6 +146,16 @@ After this fidelity pass, produce a full draft following the content standards b
 
 During iteration: suggest alternatives rather than impose changes. If the author's phrasing is intentional, preserve it. Flag stylistic concerns once; do not repeat them if the author keeps their version.
 
+### Ideas-Only Mode
+
+When the author asks for ideas, options, or possible improvements without asking for a draft — phrases like "just propose ideas," "no changes yet," "for me to review so I can decide," "what could address this" — respond with a numbered list of concrete options only.
+
+- Do not draft prose, edit any file, or create a new version in this mode
+- Each idea should be concrete enough to act on, not a vague direction
+- Reference the source material (notes, feedback, prior versions) so the author can judge feasibility
+- Wait for the author to select one or more ideas before implementing
+- Once the author selects, treat it as a normal iteration: implement the change, then follow Draft Versioning below to save the result
+
 ### Draft Versioning
 
 Preserve every version of a draft so the author can roll back at any time.
@@ -155,6 +166,21 @@ Preserve every version of a draft so the author can roll back at any time.
 - The unsuffixed file (`<slug>.md`) is treated as v1; the next iteration is `_v2`, not `_v1`
 - When the author signals readiness to publish, the latest `_vN` file is moved to `articles/YYYY-MM-DD-<slug>.md`
 - Direct author edits to a version file are part of that version's history — do not create a new version just because the author edited; only create a new version when producing a new revision in response to feedback
+
+**Accompany every new version with a diff report**, presented in the chat response (not saved as a separate file unless asked):
+
+- For each changed passage: quote the **Before** text, the **After** text, and one short line on why it changed
+- Group changes by location in the article (e.g., "Intro," "Branch 1," "Conclusion") so the author can scan quickly
+- Do not reprint the entire article in the report — only the changed passages
+
+### PDF Export for Review
+
+Markdown is always the source of truth — it's what gets edited. But a PDF is easier to read and review than raw markdown, so generate a companion PDF every time a version is created or revisited for review.
+
+- Run: `node scripts/convert_md_to_pdf.js drafts/<slug>_vN.md`
+- The PDF is written alongside the markdown source with the same base name (e.g., `<slug>_v2.pdf`)
+- Generate this automatically whenever a new draft version is saved — do not wait for the author to ask
+- The PDF is a read-only convenience artifact for review. Never treat it as the source to edit from — all edits happen in the markdown file, and the PDF is regenerated after
 
 ---
 
@@ -204,6 +230,8 @@ Spawn a sub-agent. Give it only the article draft — not the original notes, no
 
 Report back the reader questions as gaps for the author to decide whether to address.
 
+This technique is also available standalone, outside the full proofreading pass — invoke it any time the author wants fresh-eyes feedback on a draft. When used standalone, report only the reader-test findings; do not run the other five checks unless asked.
+
 **Output format:**
 
 ```
@@ -227,6 +255,19 @@ Report back the reader questions as gaps for the author to decide whether to add
 - [Gap 1]
 - [Gap 2]
 ```
+
+---
+
+### Optional: Differentiation Check
+
+Available on request at any point, most useful before publishing topics likely to be saturated online (how-to guides, lessons-learned pieces, listicles).
+
+When requested:
+1. Search for existing LinkedIn articles, blog posts, and online content on the same topic
+2. Identify what the draft has that existing content does not (unique credentials, specific data, concrete frameworks, contrarian angles)
+3. Identify what the draft covers that is generic and widely available elsewhere
+4. Report a differentiation verdict (clearly differentiated / partially differentiated / largely generic) with concrete suggestions to sharpen the differentiated angle
+5. This is an analysis step only — do not edit the draft. Pair with Ideas-Only Mode above: present findings as options, and wait for the author to decide what to act on
 
 ---
 
